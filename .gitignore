@@ -201,6 +201,11 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
+# Lab 9 runtime artifacts
+output/*.db
+output/*.sqlite
+output/chroma_db/
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
