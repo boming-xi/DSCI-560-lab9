@@ -8,6 +8,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
+# Mitigate common macOS OpenMP duplicate runtime crashes from mixed environments.
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.chains import ConversationalRetrievalChain
