@@ -16,6 +16,11 @@ This is a Python gui application that demonstrates how to build a custom PDF cha
 pip install -r requirements.txt
 ```
 
+For `App_p2.py` (open-source local models), install extra packages:
+```
+pip install transformers sentence-transformers
+```
+
 2. Create a `.env` file in the root directory of the project and add the following environment variables:
 ```
 OPENAI_API_KEY= # Your OpenAI API key
@@ -55,8 +60,10 @@ OPENAI_API_KEY=your_real_openai_api_key
 ```
 
 ## Lab 9 (Part 1 + Part 2) script
-This repo also includes `App_p1.py` and `App_p2.py`, which implement the assignment flow from the lab prompt:
+This repo also includes `App_p1.py` and `App_p2.py`.
 
+### `App_p1.py` (CLI version, OpenAI API)
+Implements the full lab pipeline:
 1. Iterate over PDFs in a folder and extract text.
 2. Store extracted text and chunks in SQLite tables.
 3. Split text with `CharacterTextSplitter` (`chunk_size=500` by default).
@@ -64,24 +71,37 @@ This repo also includes `App_p1.py` and `App_p2.py`, which implement the assignm
 5. Build a conversational retrieval chain with `ConversationBufferMemory`.
 6. Run an interactive driver loop (type `exit` to quit).
 
-### Run
+Run:
 ```bash
 python App_p1.py --data-dir . --db-path lab9_documents.db --index-dir lab9_faiss_index
 ```
 
-```bash
-python App_p2.py --data-dir . --db-path lab9_documents.db --index-dir lab9_faiss_index
-```
-
-### Part 1 only (data prep)
+Part 1 only (data prep):
 ```bash
 python App_p1.py --prepare-only
 ```
 
-### Notes
-- Set `OPENAI_API_KEY` in `.env` or environment variables before running.
+Notes:
+- Requires `OPENAI_API_KEY` in `.env` or environment variables.
 - Default LLM model: `gpt-4o-mini`
 - Default embedding model: `text-embedding-3-small`
+
+### `App_p2.py` (Streamlit version, open-source local models)
+This version runs a local-model chatbot UI in Streamlit:
+- Embeddings: `sentence-transformers/all-MiniLM-L6-v2`
+- LLM: `google/flan-t5-base`
+- No OpenAI API key required for this script.
+
+Run:
+```bash
+streamlit run App_p2.py
+```
+
+Usage:
+1. Open the local Streamlit URL in browser.
+2. Upload one or more PDFs in the sidebar.
+3. Click `Process`.
+4. Ask questions in the input box.
 
 
 ## Update to use Llama 2 running locally

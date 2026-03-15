@@ -7,4 +7,3 @@ openai>=1.40.0
 faiss-cpu>=1.8.0
 tiktoken>=0.7.0
 streamlit>=1.30.0
-sentence-transformers>=2.7.0
